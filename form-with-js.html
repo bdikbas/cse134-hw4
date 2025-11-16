@@ -87,7 +87,69 @@
         const textarea = document.querySelector("#comments");
         let form_errors = [];
 
-        
+        function showError(msg) {
+            errorBox.textContent = msg;
+            setTimeout(() => errorBox.textContent = "", 1500);
+        }
+        function showInfo(msg) {
+            infoBox.textContent = msg;
+        }
+        form.addEventListener("input", e => {
+            const field = e.target;
+            if(!field.pattern)
+            return;
+        const allowed = new RegExp(field.pattern);
+        if(field.value && !allowed.test(field.value)) {
+            field.value = field.value.slice(0,-1);
+            field.style.backgroundColor = "#ffebee";
+            showError("Illegal character type!");
+            setTimeout(() => field.style.backgroundColor = "", 200);
+        }
+        });
+
+        comments.addEventListener("input", () => {
+            const remain = comments.maxLength - comments.value.length;
+            infoBox.textContent = remain + " characters left";
+            if(remain < 30) infoBox.style.color = "orange";
+            else infoBox.style.color = "green";
+            if(remain <= 0) {
+                infoBox.style.color = "red";
+                showError("Character limit reached!");
+            }
+        });
+
+        function checkField(field) {
+            field.setCustomValidity("");
+            if(field.validity.valueMissing) field.setCustomValidity("This is a required field");
+            if(field.validity.typeMismatch && field.type === "email") field.setCustomValidity("Please enter a valid email address");
+            if(field.validity.tooShort) field.setCustomValidity("Too short!");
+            if(field.validity.tooLong) field.setCustomValidity("Too Long!");
+        }
+
+        form.addEventListener("submit", e => {
+            form_errors = [];
+            for(let field of form.elements) {
+                if(field.willValidate())
+                checkField(field);
+                if(!field.checkValidity()) {
+                    form_errors.push({name: field.name, message: field.validationMessage});
+                }
+            }
+
+            const errField = document.createElement("input");
+            errField.type = "hidden";
+            errField.name = "form-errors";
+            errField.value = JSON.stringify(form_errors);
+            form.appendChild(errField);
+
+            if(form_errors.length >0) {
+                e.preventDefault();
+                showerError("Please fix errors");
+            }
+            else {
+                showInfo("Form successfully submitted! Thank You!");
+            }
+        });
     </script>
     <form action="https://httpbin.org/post" method="post" novalidate>
         <label for="name">Name <span aria-hidden="true">*</span></label>
