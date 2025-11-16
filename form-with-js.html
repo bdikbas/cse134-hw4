@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Form (No JS included</title>
+    <title>Contact Form JS included</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -80,6 +80,15 @@
 </head>
 
 <body>
+    <script>
+        const form = document.querySelector("form");
+        const errorOut = document.querySelector("#error");
+        const infoOut = document.querySelector("info");
+        const textarea = document.querySelector("#comments");
+        let form_errors = [];
+
+        
+    </script>
     <form action="https://httpbin.org/post" method="post" novalidate>
         <label for="name">Name <span aria-hidden="true">*</span></label>
         <input type="text" id="name" name="name" required minlength="2" maxlength="50" placeholder="Enter name here" pattern="[A-Za-z\s]+">
