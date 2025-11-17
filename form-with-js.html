@@ -101,7 +101,7 @@
         <output id="error" name="error"></output>
         <output id="info" name="info"></output>
     </form>
-    
+
     <script>
         const form = document.querySelector("form");
         const errorOut = document.querySelector("#error");
@@ -150,11 +150,14 @@
 
         form.addEventListener("submit", e => {
             form_errors = [];
+            let messages = [];
+
             for(let field of form.elements) {
                 if(field.willValidate)
                 checkField(field);
                 if(!field.checkValidity()) {
                     form_errors.push({name: field.name, message: field.validationMessage});
+                    messages.push(`${field.name}: ${field.validationMessage}`);
                 }
             }
 
@@ -166,7 +169,7 @@
 
             if(form_errors.length >0) {
                 e.preventDefault();
-                showError("Please fix errors");
+                showError(messages.join(" | "));
             }
             else {
                 showInfo("Form successfully submitted! Thank You!");
