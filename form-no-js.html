@@ -25,7 +25,8 @@
         
         body {
             font-family: Arial, sans-serif;
-            background-color: white;
+            background-color:var(--bg-color);
+            color:  var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -37,7 +38,7 @@
             flex-direction: column;
             width: 350px;
             padding: 15px;
-            border: 1px solid white;
+            border: 1px solid var(--border-color);
             background-color: var(--bg-color);
             box-shadow: 0 1px 4px rgba(0,0,0,0.2);
         }
@@ -50,7 +51,7 @@
             padding: 5px;
             margin-top: 2.5px;
             border-radius: 5px;
-            border: 1px solid white;
+            border: 1px solid var(--border-color);
             font-size: 12px;
         }
         input:required, textarea:required {
@@ -126,5 +127,21 @@
         <output id="error" name="error"></output>
         <output id="info" name="info"></output>
     </form>
+
+    <script>
+        const btn = document.getElementById("theme-toggle");
+        const saved = localStorage.getItem("theme");
+        if (saved) {
+            document.documentElement.setAttribute("data-theme", saved);
+        }
+
+        btn.addEventListener("click", () => {
+            const currentlyDark = document.documentElement.getAttribute("data-theme") === "dark";
+            const newTheme = currentlyDark ? "light" : "dark";
+
+            document.documentElement.setAttribute("data-theme", newTheme);
+            localStorage.setItem("theme", newTheme);
+        });
+    </script>
 </body>
 </html>
