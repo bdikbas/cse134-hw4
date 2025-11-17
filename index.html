@@ -106,25 +106,5 @@
     <button id="theme-toggle" style="position:absolute; top:15px; right:15px;">
     Toggle Theme (JS Required)
     </button>
-    <form action="https://httpbin.org/post" method="post" novalidate>
-        <label for="name">Name <span aria-hidden="true">*</span></label>
-        <input type="text" id="name" name="name" required minlength="2" maxlength="50" placeholder="Enter name here" pattern="[A-Za-z\s]+">
-        
-        <label for="email">Email<span aria-hidden="true">*</span></label>
-        <input type="email" id="email" name="email" required placeholder="name@example.com">
-
-        <label for="subject">Subject</label>
-        <input type="text" id="subject" name="subject" maxlength="60" pattern="[A-Za-z0-9\s.,!?'-]+">
-
-        <label for="comments">Comments <span aria-hidden="true">*</span></label>
-        <textarea id="comments" name="comments" required minlength="2" maxlength="300" placeholder="Write message here"></textarea>
-
-        <input type="hidden" name="possible_bot" value="true">
-
-        <button type="submit">Send Message</button>
-
-        <output id="error" name="error"></output>
-        <output id="info" name="info"></output>
-    </form>
 </body>
 </html>
